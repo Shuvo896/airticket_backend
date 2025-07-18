@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to {{ name }}</h1>
+        <h2>User List</h2>
+
+        {% if users %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.user_id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>{{ user.address }}</td>
+                            <td>{{ user.role|title }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No users found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
+</head>
+<body>
+    <div class="container">
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <h2>Create Account</h2>
+
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="errorlist">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
