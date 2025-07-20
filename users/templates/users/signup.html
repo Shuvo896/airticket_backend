@@ -4,28 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
-    <link rel="stylesheet" href="{% static 'signup.css' %}">
+    <title>Passenger Signup - BookInFly</title>
+    <link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <form method="POST" action="{% url 'signup' %}">
-            {% csrf_token %}
-            <h2>Create Account</h2>
+    <header>
+        <img src="{% static 'users/css/imgs/logoe.png' %}" alt="BookInFly Logo" class="logo">
+        <p>YOUR FAST BOOKING BUDDY</p>
+    </header>
 
-            {% for field in form %}
-                <div class="form-group">
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="errorlist">
-                            {{ field.errors }}
-                        </div>
+    <main>
+        <div class="form-container">
+            <h2>Registration</h2>
+
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                
+                <div class="form-field">
+                    <input type="text" name="username" placeholder="Full Name" required>
+                    {% if form.username.errors %}
+                        <div class="error-message">{{ form.username.errors.0 }}</div>
                     {% endif %}
                 </div>
-            {% endfor %}
 
-            <button type="submit">Sign Up</button>
-        </form>
-    </div>
+                <div class="form-field">
+                    <input type="email" name="email" placeholder="Email" required>
+                    {% if form.email.errors %}
+                        <div class="error-message">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-field">
+                    <input type="text" name="passport_number" placeholder="Passport Number" required>
+                    {% if form.passport_number.errors %}
+                        <div class="error-message">{{ form.passport_number.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-field">
+                    <input type="text" name="nationality" placeholder="Nationality" required>
+                    {% if form.nationality.errors %}
+                        <div class="error-message">{{ form.nationality.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="date_of_birth">Date of Birth:</label>
+                    <input type="date" name="date_of_birth" required>
+                    {% if form.date_of_birth.errors %}
+                        <div class="error-message">{{ form.date_of_birth.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-field">
+                    <input type="password" name="password" placeholder="Password" required>
+                    {% if form.password.errors %}
+                        <div class="error-message">{{ form.password.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-field">
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    {% if form.confirm_password.errors %}
+                        <div class="error-message">{{ form.confirm_password.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="book-btn">Register Now</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>Already have an account? <a href="#">Log in here</a></p>
+    </footer>
 </body>
 </html>

@@ -21,6 +21,8 @@ body {
 header {
   /* background: var(--primary); */
   background-image: url('imgs/plane.jpg');
+  background-size: cover;
+  background-position: center;
   color: var(--white);
   padding: 2rem 1rem;
   text-align: center;

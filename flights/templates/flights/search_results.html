@@ -23,7 +23,7 @@
             {{ flight.origin }} → {{ flight.destination }}
           </div>
           <div class="flight-meta">
-            {{ flight.flight_no }} • {{ flight.departure_time|date:"M d, Y H:i" }} • ${{ flight.price }}
+            {{ flight.flight_no }} • {{ flight.departure_time|date:"M d, Y H:i" }} • ৳{{ flight.price }}
           </div>
         </div>
         <a href="{% url 'book_flight' flight.id %}" class="book-btn">Select</a>
