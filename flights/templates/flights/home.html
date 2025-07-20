@@ -1,18 +1,53 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flight Listings</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookInFly — Flight Booking</title>
+  <link rel="stylesheet" href="{% static 'flights/css/home.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Available Flights</h1>
-    <ul>
-        {% for flight in flights %}
-            <li>{{ flight.name }} - {{ flight.destination }} - {{ flight.price }}</li>
-        {% empty %}
-            <li>No flights available.</li>
-        {% endfor %}
-    </ul>
+  <header>
+    <div>
+        <img src="{% static 'flights/css/imgs/logo.png' %}" alt="BookInFly Logo" class="logo"> 
+    </div>
+    <p>YOUR FAST BOOKING BUDDY</p>
+  </header>
+
+  <main>
+    <div class="search-container">
+      <form class="search-form" method="get" action="{% url 'search_flights' %}">
+        <input type="text" name="origin" placeholder="From" required>
+        <input type="text" name="destination" placeholder="To" required>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <div class="flights-container">
+      <h2 style="margin-bottom: 1.5rem;">Featured Flights</h2>
+      
+      {% for flight in flights %}
+      <div class="flight-card">
+        <div class="flight-info">
+          <div class="flight-route">
+            {{ flight.origin }} → {{ flight.destination }}
+          </div>
+          <div class="flight-meta">
+            {{ flight.flight_no }} • {{ flight.departure_time|date:"M d, Y H:i" }} • ${{ flight.price }}
+          </div>
+        </div>
+        <a href="{% url 'book_flight' flight.id %}" class="book-btn">Book</a>
+      </div>
+      {% empty %}
+      <p style="text-align: center;">No flights available</p>
+      {% endfor %}
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 BookInFly. All rights reserved.</p>
+  </footer>
 </body>
 </html>

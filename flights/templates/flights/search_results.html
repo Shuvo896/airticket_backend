@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results — BookInFly</title>
+  <link rel="stylesheet" href="{% static 'flights/css/home.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Search Results</h1>
+    <p>{{ flights|length }} flights found</p>
+  </header>
+
+  <div class="flights-container" style="margin-top: 2rem;">
+    {% if flights %}
+      {% for flight in flights %}
+      <div class="flight-card">
+        <div class="flight-info">
+          <div class="flight-route">
+            {{ flight.origin }} → {{ flight.destination }}
+          </div>
+          <div class="flight-meta">
+            {{ flight.flight_no }} • {{ flight.departure_time|date:"M d, Y H:i" }} • ${{ flight.price }}
+          </div>
+        </div>
+        <a href="{% url 'book_flight' flight.id %}" class="book-btn">Select</a>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div style="text-align: center; padding: 2rem;">
+        <p style="margin-bottom: 1rem;">No flights match your search</p>
+        <a href="{% url 'home' %}" style="color: var(--primary); text-decoration: none;">← New search</a>
+      </div>
+    {% endif %}
+  </div>
+
+  <footer>
+    <a href="{% url 'home' %}" style="color: var(--primary); text-decoration: none;">← Back to home</a>
+  </footer>
+</body>
+</html>
