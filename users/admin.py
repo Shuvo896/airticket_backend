@@ -1,14 +1,10 @@
 from django.contrib import admin
 from .models import Passenger, Admin
-# from .models import User, Passenger, Admin
-# Register your models here.
 
 
-@admin.register(Passenger)
-class PassengerAdmin(admin.ModelAdmin):
-    list_display = ('passport_number', 'nationality', 'username', 'email', 'date_of_birth')
-    search_fields = ('username', 'email', 'passport_number', 'nationality')
-    list_filter = ('nationality',)
+
+admin.site.register(Passenger)
+
 
 @admin.register(Admin)
 class AdminAdmin(admin.ModelAdmin):

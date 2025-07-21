@@ -1,8 +1,8 @@
 from django import forms
 from .models import Passenger
 from django.contrib.auth.hashers import make_password
+from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from django.contrib.auth import get_user_model
 
 class PassengerSignupForm(forms.ModelForm):
     password = forms.CharField(
@@ -34,10 +34,10 @@ class PassengerSignupForm(forms.ModelForm):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
-
+        
         if password and confirm_password and password != confirm_password:
-            raise ValidationError("Passwords do not match!")
-
+            self.add_error('confirm_password', "Passwords don't match")
+        
         return cleaned_data
     
     def save(self, commit=True):
@@ -46,28 +46,3 @@ class PassengerSignupForm(forms.ModelForm):
         if commit:
             passenger.save()
         return passenger
-    
-    
-class PassengerLoginForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'placeholder': 'Email'})
-    )
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Password'})
-    )
-    
-    def clean(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get('email')
-        password = cleaned_data.get('password')
-        
-        if email and password:
-            Passenger = get_user_model()
-            try:
-                self.user = Passenger.objects.get(email=email)
-                if not self.user.check_password(password):
-                    raise forms.ValidationError("Invalid password")
-            except Passenger.DoesNotExist:
-                raise forms.ValidationError("No account found with this email")
-        
-        return cleaned_data
