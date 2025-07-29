@@ -38,9 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    # 'users2', # Testing the other login system
     'flights',
     'bookings',
 ]
+
+LOGIN_REDIRECT_URL = 'profile'
+LOGOUT_REDIRECT_URL = 'login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +61,7 @@ ROOT_URLCONF = 'bookinfly.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookinfly.wsgi.application'
 
-# AUTH_USER_MODEL = 'users.Passenger'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

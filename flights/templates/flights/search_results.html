@@ -26,7 +26,7 @@
             {{ flight.flight_no }} • {{ flight.departure_time|date:"M d, Y H:i" }} • ৳{{ flight.price }}
           </div>
         </div>
-        <a href="{% url 'book_flight' flight.id %}" class="book-btn">Select</a>
+        <a href="{% url 'book_flight' flight.id %}" class="book-btn">Book</a>
       </div>
       {% endfor %}
     {% else %}
